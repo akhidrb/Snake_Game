@@ -16,7 +16,50 @@ function writeData() {
 
     document.body.appendChild(parent);
 }
+
+
+function getNewPosition(pos, topLeft) {
+    var newPos = parseInt(pos.substring(0, pos.length - 2));
+    if (newPos < 450 && topLeft) {
+        newPos += 51;
+    } 
+    if (newPos > 50 && !topLeft) {
+        newPos -= 51;
+    }
+    return newPos.toString() + 'px';
+}
+
+function writeFruit() {
+    var parent = document.getElementById('grid');
+    var fruit = document.createElement('div');
+    fruit.id = 'fruit';
+
+    var posX = Math.floor(Math.random() * 10) * 51;
+    var posY = Math.floor(Math.random() * 10) * 51;
+
+    fruit.style.margin = posY.toString() + 'px 0 0 ' + posX.toString() + 'px'; 
+    parent.appendChild(fruit);
+}
+
+
+function resetFruitIfHit() {
+    var snake = document.getElementById('snake');
+    var fruit = document.getElementById('fruit');
+
+    var marginSnake = snake.style.margin;
+    var marginFruit = fruit.style.margin;
+
+    if (marginSnake === marginFruit) {
+        var posX = Math.floor(Math.random() * 10) * 51;
+        var posY = Math.floor(Math.random() * 10) * 51;    
+        fruit.style.margin = posY.toString() + 'px 0 0 ' + posX.toString() + 'px'; 
+    }
+}
+
+///////////////////////////
+
 writeData();
+writeFruit();
 
 // Left: 37, Up: 38, Right: 39, Down: 40 
 document.addEventListener('keydown', function(event) {
@@ -44,43 +87,3 @@ document.addEventListener('keydown', function(event) {
     }
     resetFruitIfHit();
 });
-
-function getNewPosition(pos, topLeft) {
-    var newPos = parseInt(pos.substring(0, pos.length - 2));
-    if (newPos < 450 && topLeft) {
-        newPos += 51;
-    } 
-    if (newPos > 50 && !topLeft) {
-        newPos -= 51;
-    }
-    return newPos.toString() + 'px';
-}
-
-function writeFruit() {
-    var parent = document.getElementById('grid');
-    var fruit = document.createElement('div');
-    fruit.id = 'fruit';
-
-    var posX = Math.floor(Math.random() * 10) * 51;
-    var posY = Math.floor(Math.random() * 10) * 51;
-
-    fruit.style.margin = posY.toString() + 'px 0 0 ' + posX.toString() + 'px'; 
-    parent.appendChild(fruit);
-}
-
-writeFruit();
-
-function resetFruitIfHit() {
-    var snake = document.getElementById('snake');
-    var fruit = document.getElementById('fruit');
-
-    var marginSnake = snake.style.margin;
-    var marginFruit = fruit.style.margin;
-
-    if (marginSnake === marginFruit) {
-        var posX = Math.floor(Math.random() * 10) * 51;
-        var posY = Math.floor(Math.random() * 10) * 51;    
-        fruit.style.margin = posY.toString() + 'px 0 0 ' + posX.toString() + 'px'; 
-    }
-}
-
