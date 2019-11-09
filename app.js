@@ -1,3 +1,7 @@
+var dirX = 1, dirY = 0;
+var gameOn = true;
+var score = 0;
+
 function writeData() {
     var parent = document.createElement('div');
     parent.id = 'grid';
@@ -16,7 +20,6 @@ function writeData() {
 
     document.body.appendChild(parent);
 }
-
 
 function getNewPosition(pos, topLeft) {
     var newPos = parseInt(pos.substring(0, pos.length - 2));
@@ -41,7 +44,6 @@ function writeFruit() {
     parent.appendChild(fruit);
 }
 
-
 function resetFruitIfHit() {
     var snake = document.getElementById('snake');
     var fruit = document.getElementById('fruit');
@@ -53,11 +55,28 @@ function resetFruitIfHit() {
         var posX = Math.floor(Math.random() * 10) * 51;
         var posY = Math.floor(Math.random() * 10) * 51;    
         fruit.style.margin = posY.toString() + 'px 0 0 ' + posX.toString() + 'px'; 
+        score++;
     }
 }
 
+function moveSnake() {
+    if (dirY === 1) {
+        var x = document.getElementById('snake');
+        x.style.marginTop = getNewPosition(x.style.marginTop, false);
+    } else if (dirY === 2) {
+        var x = document.getElementById('snake');
+        x.style.marginTop = getNewPosition(x.style.marginTop, true);
+    } 
+    if (dirX === 1) {
+        var x = document.getElementById('snake');
+        x.style.marginLeft = getNewPosition(x.style.marginLeft, true);
+    } else if (dirX === 2) {
+        var x = document.getElementById('snake');
+        x.style.marginLeft = getNewPosition(x.style.marginLeft, false);
+    } 
+}
+
 ///////////////////////////
-var dirX = 1, dirY = 0;
 
 writeData();
 writeFruit();
@@ -80,27 +99,20 @@ document.addEventListener('keydown', function(event) {
     }
 });
 
-function moveSnake() {
-
-    if (dirY === 1) {
-        var x = document.getElementById('snake');
-        x.style.marginTop = getNewPosition(x.style.marginTop, false);
-    } else if (dirY === 2) {
-        var x = document.getElementById('snake');
-        x.style.marginTop = getNewPosition(x.style.marginTop, true);
-    } 
-
-    if (dirX === 1) {
-        var x = document.getElementById('snake');
-        x.style.marginLeft = getNewPosition(x.style.marginLeft, true);
-    } else if (dirX === 2) {
-        var x = document.getElementById('snake');
-        x.style.marginLeft = getNewPosition(x.style.marginLeft, false);
-    } 
-}
-
 setInterval(function(){ 
-    moveSnake();
-    resetFruitIfHit();
+    if (gameOn) {
+        moveSnake();
+        resetFruitIfHit();
+    }
 }, 100);
 
+setTimeout(function() {
+    gameOn = false;
+    alert('Game is Over. Your score is ' + score);
+    const message = 'Would you like to keep playing';
+    var continuePlaying = window.confirm(message);
+    if (continuePlaying) {
+        gameOn = true;
+        score = 0;
+    }
+}, 60000);
