@@ -1,0 +1,31 @@
+
+body {
+    padding: 0;
+}
+
+#grid {
+    margin-left: 500px;
+    width: 510px;
+    height: 510px;
+    border: 1px solid #ccc;
+    border-width: 1px 0 0 1px;
+    background-color: cyan;
+}
+
+#grid div {
+    width: 50px;
+    height: 50px;
+    border: 1px solid #ccc;
+    border-width: 0 1px 1px 0;
+    float: left;
+}
+
+#snake {
+    position: absolute;
+    background-color: black;
+}
+
+#fruit {
+    background-color: red;
+    position: absolute;
+}
