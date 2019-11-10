@@ -1,6 +1,8 @@
 
 var dirX = 1, dirY = 0;
 var score = 0;
+var totalTime = 10;
+var remainingTime = totalTime;
 
 //////////////////////////
 
@@ -92,17 +94,41 @@ function renewScore() {
     p.innerHTML = 'Score: ' + score;
 }
 
+function addGameTime() {
+    var gameTime = document.createElement('div');
+    gameTime.id = 'gameTime';
+    gameTime.style.marginLeft =  '500px';
+    var p = document.createElement('p');
+    p.innerHTML = 'Time Remaining: ' + totalTime + 's';
+    gameTime.appendChild(p);
+    document.body.appendChild(gameTime);
+}
+
+function renewGameTime() {
+    if (remainingTime > 0) {
+        remainingTime--;
+    }
+    var gameTime = document.getElementById('gameTime');
+    var p = gameTime.childNodes[0];
+    p.innerHTML = 'Time Remaining: ' + remainingTime + 's';
+}
+
 ///////////////////////////
 
 writeData();
 writeFruit();
 addScore();
+addGameTime();
 
 setInterval(function(){ 
         moveSnake();
         resetFruitIfHit();
         renewScore();
 }, 100);
+
+setInterval(function(){ 
+    renewGameTime();
+}, 1000);
 
 ///////////////////////////
 
