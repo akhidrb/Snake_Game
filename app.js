@@ -10,9 +10,27 @@ function writeData() {
         }
     }
 
+    var snake = document.createElement('div');
+    snake.id = 'snake';
+    snake.style.margin = '0px';
+    parent.appendChild(snake);
+
     document.body.appendChild(parent);
+}
+
+function writeFruit() {
+    var parent = document.getElementById('grid');
+    var fruit = document.createElement('div');
+    fruit.id = 'fruit';
+
+    var posX = Math.floor(Math.random() * 10) * 51;
+    var posY = Math.floor(Math.random() * 10) * 51;
+
+    fruit.style.margin = posY.toString() + 'px 0 0 ' + posX.toString() + 'px'; 
+    parent.appendChild(fruit);
 }
 
 ///////////////////////////
 
 writeData();
+writeFruit();
