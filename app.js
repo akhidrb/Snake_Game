@@ -1,6 +1,8 @@
 var dirX = 1, dirY = 0;
 var gameOn = true;
 var score = 0;
+var totalTime = 10;
+var remainingTime = totalTime;
 
 function writeData() {
     var parent = document.createElement('div');
@@ -76,10 +78,51 @@ function moveSnake() {
     } 
 }
 
+function addScore() {
+    var scoreBoard = document.createElement('div');
+    scoreBoard.id = 'scoreBoard';
+    scoreBoard.style.marginLeft =  '500px';
+    var p = document.createElement('p');
+    p.innerHTML = 'Score: ' + score;
+    scoreBoard.appendChild(p);
+    document.body.appendChild(scoreBoard);
+}
+
+function renewScore() {
+    var scoreBoard = document.getElementById('scoreBoard');
+    var p = scoreBoard.childNodes[0];
+    p.innerHTML = 'Score: ' + score;
+}
+
+function addGameTime() {
+    var gameTime = document.createElement('div');
+    gameTime.id = 'gameTime';
+    gameTime.style.marginLeft =  '500px';
+    var p = document.createElement('p');
+    p.innerHTML = 'Time Remaining: ' + totalTime + 's';
+    gameTime.appendChild(p);
+    document.body.appendChild(gameTime);
+}
+
+function renewGameTime() {
+    if (remainingTime > 0) {
+        remainingTime--;
+    }
+    var gameTime = document.getElementById('gameTime');
+    var p = gameTime.childNodes[0];
+    p.innerHTML = 'Time Remaining: ' + remainingTime + 's';
+}
+
 ///////////////////////////
 
 writeData();
 writeFruit();
+addScore();
+addGameTime();
+
+setInterval(function(){ 
+    renewGameTime();
+}, 1000);
 
 // Left: 37, Up: 38, Right: 39, Down: 40 
 document.addEventListener('keydown', function(event) {
@@ -104,6 +147,7 @@ setInterval(function(){
         moveSnake();
         resetFruitIfHit();
     }
+    renewScore();
 }, 100);
 
 setTimeout(function() {
@@ -115,4 +159,4 @@ setTimeout(function() {
         gameOn = true;
         score = 0;
     }
-}, 60000);
+}, totalTime*1000);
