@@ -1,4 +1,5 @@
 
+var dirX = 1, dirY = 0;
 
 //////////////////////////
 
@@ -44,24 +45,45 @@ function getNewPosition(pos, topLeft) {
     return newPos.toString() + 'px';
 }
 
+function moveSnake() {
+    var x = document.getElementById('snake');    
+
+    if (dirY === 1) {
+        x.style.marginTop = getNewPosition(x.style.marginTop, false);
+    } else if (dirY === 2) {
+        x.style.marginTop = getNewPosition(x.style.marginTop, true);
+    } 
+    if (dirX === 1) {
+        x.style.marginLeft = getNewPosition(x.style.marginLeft, true);
+    } else if (dirX === 2) {
+        x.style.marginLeft = getNewPosition(x.style.marginLeft, false);
+    } 
+}
+
 ///////////////////////////
 
 writeData();
 writeFruit();
 
+setInterval(function(){ 
+        moveSnake();
+}, 100);
+
 ///////////////////////////
 
 // Left: 37, Up: 38, Right: 39, Down: 40 
 document.addEventListener('keydown', function(event) {
-    var x = document.getElementById('snake');
-    
     if(event.keyCode == 37) {
-        x.style.marginLeft = getNewPosition(x.style.marginLeft, false);
+        dirX = 2;
+        dirY = 0;
     } else if(event.keyCode == 38) {
-        x.style.marginTop = getNewPosition(x.style.marginTop, false);
+        dirY = 1;
+        dirX = 0;
     } else if(event.keyCode == 39) {
-        x.style.marginLeft = getNewPosition(x.style.marginLeft, true);
+        dirX = 1;
+        dirY = 0;
     } else if(event.keyCode == 40) {
-        x.style.marginTop = getNewPosition(x.style.marginTop, true);
+        dirY = 2;
+        dirX = 0;
     }
 });
