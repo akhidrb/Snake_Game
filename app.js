@@ -1,5 +1,6 @@
 
 var dirX = 1, dirY = 0;
+var score = 0;
 
 //////////////////////////
 
@@ -71,17 +72,36 @@ function resetFruitIfHit() {
         var posX = Math.floor(Math.random() * 10) * 51;
         var posY = Math.floor(Math.random() * 10) * 51;    
         fruit.style.margin = posY.toString() + 'px 0 0 ' + posX.toString() + 'px'; 
+        score++;
     }
+}
+
+function addScore() {
+    var scoreBoard = document.createElement('div');
+    scoreBoard.id = 'scoreBoard';
+    scoreBoard.style.marginLeft =  '500px';
+    var p = document.createElement('p');
+    p.innerHTML = 'Score: ' + score;
+    scoreBoard.appendChild(p);
+    document.body.appendChild(scoreBoard);
+}
+
+function renewScore() {
+    var scoreBoard = document.getElementById('scoreBoard');
+    var p = scoreBoard.childNodes[0];
+    p.innerHTML = 'Score: ' + score;
 }
 
 ///////////////////////////
 
 writeData();
 writeFruit();
+addScore();
 
 setInterval(function(){ 
         moveSnake();
         resetFruitIfHit();
+        renewScore();
 }, 100);
 
 ///////////////////////////
