@@ -60,6 +60,20 @@ function moveSnake() {
     } 
 }
 
+function resetFruitIfHit() {
+    var snake = document.getElementById('snake');
+    var fruit = document.getElementById('fruit');
+
+    var marginSnake = snake.style.margin;
+    var marginFruit = fruit.style.margin;
+
+    if (marginSnake === marginFruit) {
+        var posX = Math.floor(Math.random() * 10) * 51;
+        var posY = Math.floor(Math.random() * 10) * 51;    
+        fruit.style.margin = posY.toString() + 'px 0 0 ' + posX.toString() + 'px'; 
+    }
+}
+
 ///////////////////////////
 
 writeData();
@@ -67,6 +81,7 @@ writeFruit();
 
 setInterval(function(){ 
         moveSnake();
+        resetFruitIfHit();
 }, 100);
 
 ///////////////////////////
