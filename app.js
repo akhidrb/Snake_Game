@@ -3,6 +3,7 @@ var dirX = 1, dirY = 0;
 var score = 0;
 var totalTime = 10;
 var remainingTime = totalTime;
+var gameOn = true;
 
 //////////////////////////
 
@@ -121,14 +122,27 @@ addScore();
 addGameTime();
 
 setInterval(function(){ 
+    if (gameOn) {
         moveSnake();
         resetFruitIfHit();
         renewScore();
+    }
 }, 100);
 
 setInterval(function(){ 
     renewGameTime();
 }, 1000);
+
+setTimeout(function() {
+    gameOn = false;
+    alert('Game is Over. Your score is ' + score);
+    const message = 'Would you like to keep playing?';
+    var continuePlaying = window.confirm(message);
+    if (continuePlaying) {
+        gameOn = true;
+        score = 0;
+    }
+}, totalTime*1000);
 
 ///////////////////////////
 
