@@ -159,4 +159,4 @@ setTimeout(function() {
         gameOn = true;
         score = 0;
     }
-}, totalTime*1000);
+}, (totalTime*1000) + 1000);
